@@ -1,0 +1,19 @@
+# Use Python 3.9 image
+FROM python:3.9-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy the requirements and install dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Copy the trained model and Flask app
+COPY model.pkl .
+COPY model_service.py .
+
+# Expose port 5001
+EXPOSE 5001
+
+# Run the model service
+CMD ["python", "model_service.py"]
